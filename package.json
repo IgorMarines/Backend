@@ -10,6 +10,8 @@
   "dependencies": {
     "@fastify/cors": "^8.5.0",
     "@fastify/mysql": "^4.2.0",
+    "@fastify/postgres": "^5.2.2",
+    "@vercel/postgres": "^0.5.1",
     "dotenv": "^16.3.1",
     "fastify": "^4.25.1",
     "neon-js": "^1.1.2",
