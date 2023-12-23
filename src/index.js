@@ -50,8 +50,8 @@ fastify.get("/users/:id", async function (request, reply) {
 fastify.post("/users", async function (request, reply) {
   try {
     const result = await fastify.pg.query(
-      "INSERT INTO usuarios (id, name, price) VALUES ($1, $2, $3)",
-      [request.body.id, request.body.name, request.body.price]
+      "INSERT INTO usuarios (name, price) VALUES ($1, $2)",
+      [request.body.name, request.body.price]
     );
     reply.send(result);
   } catch (error) {
