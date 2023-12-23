@@ -7,12 +7,11 @@ fastify.register(require("@fastify/cors"), {
 });
 
 fastify.register(require("@fastify/postgres"), {
-  connectionString:
-    "postgres://default:MFStQxT47sfa@ep-quiet-field-46801094-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
+  connectionString: process.env.POSTGRES_URL,
 });
 
-fastify.get("/teste/:numero", function (request, reply) {
-  reply.send(`${request.params.numero}`);
+fastify.get("/", function (request, reply) {
+  reply.send(`Olá mundo`);
 });
 
 fastify.get("/users", async function (request, reply) {
