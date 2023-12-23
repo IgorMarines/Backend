@@ -6,12 +6,13 @@ fastify.register(require("@fastify/cors"), {
   origin: true,
 });
 
+const url_postgress = process.env.POSTGRES_URL + "?sslmode=require";
 fastify.register(require("@fastify/postgres"), {
-  connectionString: process.env.POSTGRES_URL,
+  connectionString: url_postgress,
 });
 
 fastify.get("/", function (request, reply) {
-  reply.send(`Olá mundo`);
+  reply.send(`Olá`);
 });
 
 fastify.get("/users", async function (request, reply) {
