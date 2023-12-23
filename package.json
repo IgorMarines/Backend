@@ -1,0 +1,18 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.5.0",
+    "@fastify/mysql": "^4.2.0",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.25.1",
+    "neon-js": "^1.1.2",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3"
+  }
+}
