@@ -35,7 +35,7 @@ fastify.get("/teste/:numero", function (request, reply) {
 
 fastify.get("/products", async function (request, reply) {
   try {
-    const result = await fastify.pg.query("SELECT * FROM usuarios");
+    const result = await fastify.pg.query("SELECT * FROM produtos");
     reply.send(result);
   } catch (error) {
     reply.send(error);
@@ -45,7 +45,7 @@ fastify.get("/products", async function (request, reply) {
 fastify.get("/products/:id", async function (request, reply) {
   try {
     const result = await fastify.pg.query(
-      "SELECT * FROM usuarios WHERE id = $1",
+      "SELECT * FROM produtos WHERE id = $1",
       [Number(request.params.id)]
     );
     reply.send(result);
@@ -57,7 +57,7 @@ fastify.get("/products/:id", async function (request, reply) {
 fastify.post("/products", async function (request, reply) {
   try {
     const result = await fastify.pg.query(
-      "INSERT INTO usuarios (id, name, price) VALUES ($1, $2, $3)",
+      "INSERT INTO produtos (id, name, price) VALUES ($1, $2, $3)",
       [request.body.id, request.body.name, request.body.price]
     );
     reply.send(result);
@@ -69,7 +69,7 @@ fastify.post("/products", async function (request, reply) {
 fastify.put("/products/:id", async function (request, reply) {
   try {
     const result = await fastify.pg.query(
-      "UPDATE usuarios SET name = $1, price = $2 WHERE id = $3",
+      "UPDATE produtos SET name = $1, price = $2 WHERE id = $3",
       [request.body.name, request.body.price, Number(request.params.id)]
     );
     reply.send(result);
@@ -81,7 +81,7 @@ fastify.put("/products/:id", async function (request, reply) {
 fastify.delete("/products/:id", async function (request, reply) {
   try {
     const result = await fastify.pg.query(
-      "DELETE FROM usuarios WHERE id = $1",
+      "DELETE FROM produtos WHERE id = $1",
       [Number(request.params.id)]
     );
     reply.send(result);
