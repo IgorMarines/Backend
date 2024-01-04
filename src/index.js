@@ -28,7 +28,7 @@ fastify.get("/accounts", async function (request, reply) {
       error: "Internal Server Error",
       message: error.message, // Adicionando a mensagem de erro para maior detalhamento
     });
-});
+};
 
 fastify.get("/users", async function (request, reply) {
   try {
