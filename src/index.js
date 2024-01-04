@@ -20,15 +20,14 @@ fastify.get("/", function (request, reply) {
 // Get accounts
 fastify.get("/accounts", async function (request, reply) {
   try {
-    const result = await fastify.pg.query(
-      "INSERT INTO accounts (name, password) VALUES ($1, $2)",
-      [request.body.name, request.body.price]
-    );
-    reply.send(result);
+    const result = await fastify.pg.query("SELECT * FROM accounts");
+    reply.send(result.rows);
   } catch (error) {
-    console.error("Error creating user:", error);
-    reply.status(500).send("Internal Server Error");
-  }
+    console.error("Error fetching users:", error);
+    reply.status(500).send({
+      error: "Internal Server Error",
+      message: error.message, // Adicionando a mensagem de erro para maior detalhamento
+    });
 });
 
 fastify.get("/users", async function (request, reply) {
