@@ -1,18 +1,34 @@
 const fastify = require("fastify")();
-
+//Importação das variaveis de ambiente
 require("dotenv").config();
 
 fastify.register(require("@fastify/cors"), {
   origin: true,
 });
 
+// Efetua a conexão no DB via Postgress
 const url_postgress = process.env.POSTGRES_URL + "?sslmode=require";
 fastify.register(require("@fastify/postgres"), {
   connectionString: url_postgress,
 });
 
+// Rotas
 fastify.get("/", function (request, reply) {
   reply.send(`Olá`);
+});
+
+// Get accounts
+fastify.get("/accounts", async function (request, reply) {
+  try {
+    const result = await fastify.pg.query(
+      "INSERT INTO accounts (name, password) VALUES ($1, $2)",
+      [request.body.name, request.body.price]
+    );
+    reply.send(result);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    reply.status(500).send("Internal Server Error");
+  }
 });
 
 fastify.get("/users", async function (request, reply) {
