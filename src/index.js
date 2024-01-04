@@ -1,30 +1,12 @@
 const fastify = require("fastify")();
-// Importação das variáveis de ambiente
+//Importação das variaveis de ambiente
 require("dotenv").config();
 
 fastify.register(require("@fastify/cors"), {
   origin: true,
 });
 
-const accountsMiddleware = async (request, reply) => {
-  // Defina o token específico que você deseja usar
-  const tokenEsperado = "SeuTokenEspecifico123";
-
-  const tokenFromRequest = request.headers.authorization;
-
-  // Verifica se o cabeçalho "Authorization" está presente na requisição
-  if (!tokenFromRequest || tokenFromRequest !== `Bearer ${tokenEsperado}`) {
-    reply
-      .status(401)
-      .send("Token não fornecido ou inválido para a rota de accounts");
-    return;
-  }
-
-  // O token é válido, continua o fluxo da requisição
-  console.log("Middleware específico para a rota de accounts");
-};
-
-// Efetua a conexão no DB via Postgres
+// Efetua a conexão no DB via Postgress
 const url_postgress = process.env.POSTGRES_URL + "?sslmode=require";
 fastify.register(require("@fastify/postgres"), {
   connectionString: url_postgress,
@@ -36,15 +18,15 @@ fastify.get("/", function (request, reply) {
 });
 
 // Get accounts
-fastify.get("/accounts", accountsMiddleware, async function (request, reply) {
+fastify.get("/accounts", async function (request, reply) {
   try {
     const result = await fastify.pg.query("SELECT * FROM accounts");
     reply.send(result.rows);
   } catch (error) {
-    console.error("Error fetching accounts:", error);
+    console.error("Error fetching users:", error);
     reply.status(500).send({
       error: "Internal Server Error",
-      message: error.message,
+      message: error.message, // Adicionando a mensagem de erro para maior detalhamento
     });
   }
 });
